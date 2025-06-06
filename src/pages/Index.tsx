@@ -59,25 +59,10 @@ const Index = () => {
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-black/60"></div>
         
-        {/* Quem Somos Section */}
+        {/* Quem Somos Section with Testimonials */}
         <section id="quem-somos" className="relative z-10 min-h-screen flex items-center justify-center">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="bg-white/35 backdrop-blur-sm rounded-lg p-8 shadow-xl">
-              <div className="flex justify-center">
-                <img
-                  src="https://i.postimg.cc/C5PyPsSz/La-Casita-Cardapio-page-0002.jpg"
-                  alt="La Casita"
-                  className="rounded-lg shadow-lg max-w-full h-auto"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials Section */}
-        <section className="relative z-10 py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 gap-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
               {/* Testimonials on the left */}
               <div className="text-white space-y-8">
                 <div>
@@ -99,8 +84,16 @@ const Index = () => {
                 </div>
               </div>
               
-              {/* Empty space on the right for balance */}
-              <div></div>
+              {/* Image on the right */}
+              <div className="bg-white/35 backdrop-blur-sm rounded-lg p-8 shadow-xl">
+                <div className="flex justify-center">
+                  <img
+                    src="https://i.postimg.cc/C5PyPsSz/La-Casita-Cardapio-page-0002.jpg"
+                    alt="La Casita"
+                    className="rounded-lg shadow-lg max-w-full h-auto"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </section>

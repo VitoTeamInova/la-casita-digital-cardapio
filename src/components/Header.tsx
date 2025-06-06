@@ -37,9 +37,10 @@ const Header = () => {
     const element = document.getElementById(sectionId);
     if (element) {
       if (sectionId === 'cardapio') {
-        // Scroll to show the sidebar menu at the top
-        const headerHeight = 120;
-        const targetPosition = element.offsetTop - headerHeight;
+        // Scroll to show the sidebar menu at the top with more offset
+        const headerHeight = 140;
+        const additionalOffset = 160;
+        const targetPosition = element.offsetTop - headerHeight - additionalOffset;
         window.scrollTo({ 
           top: targetPosition, 
           behavior: 'smooth' 
@@ -56,13 +57,13 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-28">
           {/* Logo and Title Section */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1">
             <div className="flex-shrink-0">
               <button onClick={() => scrollToSection('quem-somos')}>
                 <img
                   src="https://i.postimg.cc/zBkYW1Qw/La-Casita-Cardapio-page-0001.jpg"
                   alt="La Casita Logo"
-                  className="h-12 w-auto object-contain transition-transform duration-300 hover:scale-105"
+                  className="h-36 w-auto object-contain transition-transform duration-300 hover:scale-105"
                 />
               </button>
             </div>
@@ -103,15 +104,6 @@ const Header = () => {
               ))}
             </div>
           </nav>
-
-          {/* Coffee Logo on the right */}
-          <div className="hidden md:block flex-shrink-0">
-            <img
-              src="https://img.freepik.com/vetores-premium/uruguai-icona-de-xicara-de-cafe-design-de-ilustracao-do-logotipo-da-cafeteria_1055966-99.jpg?w=2000"
-              alt="Coffee Logo"
-              className="h-16 w-auto object-contain"
-            />
-          </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">

@@ -4,61 +4,6 @@ import { Button } from "@/components/ui/button";
 import { MapPin } from "lucide-react";
 
 const Map = () => {
-  const [mapboxToken, setMapboxToken] = useState('');
-  const [showTokenInput, setShowTokenInput] = useState(true);
-  const mapContainer = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<any>(null);
-
-  // La Casita coordinates (approximate based on the address)
-  const laCasitaCoordinates: [number, number] = [-52.4267, -29.7175]; // Santa Cruz do Sul coordinates
-
-  const initializeMap = async (token: string) => {
-    if (!mapContainer.current || !token) return;
-
-    try {
-      const mapboxgl = await import('mapbox-gl');
-      
-      mapboxgl.default.accessToken = token;
-      
-      mapRef.current = new mapboxgl.default.Map({
-        container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/streets-v12',
-        center: laCasitaCoordinates,
-        zoom: 15,
-      });
-
-      // Add marker for La Casita
-      new mapboxgl.default.Marker({ color: '#d97706' })
-        .setLngLat(laCasitaCoordinates)
-        .setPopup(
-          new mapboxgl.default.Popup({ offset: 25 })
-            .setHTML(`
-              <div class="p-2">
-                <h3 class="font-bold text-amber-900">La Casita</h3>
-                <p class="text-sm">Confeitaria Uruguaiana</p>
-                <p class="text-xs">R Gonçalves Ledo, 93 - Higienópolis</p>
-                <p class="text-xs">Santa Cruz do Sul - RS</p>
-              </div>
-            `)
-        )
-        .addTo(mapRef.current);
-
-      // Add navigation controls
-      mapRef.current.addControl(new mapboxgl.default.NavigationControl(), 'top-right');
-
-      setShowTokenInput(false);
-    } catch (error) {
-      console.error('Error loading map:', error);
-    }
-  };
-
-  const handleTokenSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (mapboxToken) {
-      initializeMap(mapboxToken);
-    }
-  };
-
   const openDirections = () => {
     const address = "R Gonçalves Ledo, 93, Santa Cruz do Sul - RS, Brazil";
     const encodedAddress = encodeURIComponent(address);
@@ -67,14 +12,6 @@ const Map = () => {
     const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;
     window.open(googleMapsUrl, '_blank');
   };
-
-  useEffect(() => {
-    return () => {
-      if (mapRef.current) {
-        mapRef.current.remove();
-      }
-    };
-  }, []);
 
   return (
     <div className="bg-white/35 backdrop-blur-sm rounded-lg shadow-xl p-6">
@@ -95,52 +32,29 @@ const Map = () => {
         </Button>
       </div>
 
-      {showTokenInput ? (
-        <div className="text-center">
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-6">
-            <h3 className="text-lg font-semibold text-amber-900 mb-4">Localização</h3>
-            <div className="space-y-2 text-amber-800">
-              <p><strong>Endereço:</strong> R Gonçalves Ledo, 93 - Higienópolis</p>
-              <p><strong>Cidade:</strong> Santa Cruz do Sul - RS</p>
-              <p><strong>CEP:</strong> 96820-746</p>
-              <p><strong>Telefone:</strong> (51) 3717-xxxx</p>
-            </div>
-          </div>
-          
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p className="text-blue-800 mb-4">Para visualizar o mapa interativo, insira seu token do Mapbox:</p>
-            <form onSubmit={handleTokenSubmit} className="space-y-4">
-              <input
-                type="text"
-                value={mapboxToken}
-                onChange={(e) => setMapboxToken(e.target.value)}
-                placeholder="Cole seu token do Mapbox aqui"
-                className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white">
-                Carregar Mapa
-              </Button>
-            </form>
-            <p className="text-xs text-blue-700 mt-2">
-              Obtenha seu token gratuito em{" "}
-              <a 
-                href="https://mapbox.com/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="underline hover:text-blue-900"
-              >
-                mapbox.com
-              </a>
-            </p>
-          </div>
-        </div>
-      ) : (
-        <div 
-          ref={mapContainer} 
-          className="w-full h-96 rounded-lg shadow-lg"
-          style={{ minHeight: '400px' }}
+      {/* Embed Google Maps directions directly */}
+      <div className="w-full h-96 rounded-lg shadow-lg overflow-hidden">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3515.8234567891234!2d-52.42671231234567!3d-29.71751234567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95194d123456789a%3A0x123456789abcdef0!2sR.%20Gon%C3%A7alves%20Ledo%2C%2093%20-%20Higien%C3%B3polis%2C%20Santa%20Cruz%20do%20Sul%20-%20RS%2C%2096820-746%2C%20Brazil!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="La Casita Location"
         />
-      )}
+      </div>
+
+      <div className="mt-6 bg-amber-50 border border-amber-200 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-amber-900 mb-4">Informações de Localização</h3>
+        <div className="space-y-2 text-amber-800">
+          <p><strong>Endereço:</strong> R Gonçalves Ledo, 93 - Higienópolis</p>
+          <p><strong>Cidade:</strong> Santa Cruz do Sul - RS</p>
+          <p><strong>CEP:</strong> 96820-746</p>
+          <p><strong>Telefone:</strong> (51) 3717-xxxx</p>
+        </div>
+      </div>
     </div>
   );
 };

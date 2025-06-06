@@ -34,18 +34,20 @@ const Header = () => {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      if (sectionId === 'cardapio') {
-        // Scroll to show the sidebar menu at the top with more offset
+    if (sectionId === 'cardapio') {
+      // Scroll to the separator line above the Cardapio section
+      const separatorElement = document.getElementById('cardapio-separator');
+      if (separatorElement) {
         const headerHeight = 140;
-        const additionalOffset = 160;
-        const targetPosition = element.offsetTop - headerHeight - additionalOffset;
+        const targetPosition = separatorElement.offsetTop - headerHeight;
         window.scrollTo({ 
           top: targetPosition, 
           behavior: 'smooth' 
         });
-      } else {
+      }
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }

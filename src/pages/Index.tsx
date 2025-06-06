@@ -3,6 +3,7 @@ import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Map from "../components/Map";
+import { Separator } from "@/components/ui/separator";
 
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState("Postres");
@@ -49,6 +50,11 @@ const Index = () => {
             </div>
           </div>
         </section>
+
+        {/* Separator Line */}
+        <div id="cardapio-separator" className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Separator className="bg-amber-300/50 h-1" />
+        </div>
 
         {/* Cardapio Section */}
         <section id="cardapio" className="relative z-10 min-h-screen py-16">

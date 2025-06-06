@@ -1,15 +1,44 @@
 
 import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
-  const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("quem-somos");
 
   const menuItems = [
-    { name: "Quem Somos", path: "/" },
-    { name: "Cardapio", path: "/cardapio" },
-    { name: "Produtos", path: "/produtos" },
-    { name: "Contato", path: "/contato" },
+    { name: "Quem Somos", path: "#quem-somos", sectionId: "quem-somos" },
+    { name: "Cardapio", path: "#cardapio", sectionId: "cardapio" },
+    { name: "Produtos", path: "#produtos", sectionId: "produtos" },
+    { name: "Contato", path: "#contato", sectionId: "contato" },
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = menuItems.map(item => document.getElementById(item.sectionId));
+      const scrollPosition = window.scrollY + 200;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(menuItems[i].sectionId);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <header className="bg-amber-800/95 backdrop-blur-sm shadow-lg sticky top-0 z-50">
@@ -18,13 +47,13 @@ const Header = () => {
           {/* Logo and Title Section */}
           <div className="flex items-center space-x-6">
             <div className="flex-shrink-0">
-              <Link to="/">
+              <button onClick={() => scrollToSection('quem-somos')}>
                 <img
                   src="https://i.postimg.cc/zBkYW1Qw/La-Casita-Cardapio-page-0001.jpg"
                   alt="La Casita Logo"
                   className="h-32 w-auto object-contain transition-transform duration-300 hover:scale-105"
                 />
-              </Link>
+              </button>
             </div>
             
             {/* Cafe Name and Title */}
@@ -42,35 +71,63 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Navigation Menu */}
+          {/* Desktop Navigation Menu */}
           <nav className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               {menuItems.map((item) => (
-                <Link
+                <button
                   key={item.name}
-                  to={item.path}
+                  onClick={() => scrollToSection(item.sectionId)}
                   className={`px-3 py-2 text-lg font-medium transition-all duration-300 relative group ${
-                    location.pathname === item.path
+                    activeSection === item.sectionId
                       ? "text-amber-200"
                       : "text-amber-100 hover:text-amber-200"
                   }`}
                 >
                   {item.name}
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-amber-200 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-                </Link>
+                  <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-amber-200 transform transition-transform duration-300 origin-left ${
+                    activeSection === item.sectionId ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                  }`}></span>
+                </button>
               ))}
             </div>
           </nav>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
-            <button className="text-amber-100 hover:text-amber-200 transition-colors duration-300">
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-amber-100 hover:text-amber-200 transition-colors duration-300"
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-amber-800/95 backdrop-blur-sm">
+              {menuItems.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.sectionId)}
+                  className={`block px-3 py-2 text-base font-medium w-full text-left transition-colors duration-300 ${
+                    activeSection === item.sectionId
+                      ? "text-amber-200 bg-amber-700/50"
+                      : "text-amber-100 hover:text-amber-200 hover:bg-amber-700/30"
+                  }`}
+                >
+                  {item.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );

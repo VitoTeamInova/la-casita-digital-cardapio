@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
+import { X, Download, Upload } from "lucide-react";
 
 interface SettingsFormProps {
   isOpen: boolean;
@@ -22,7 +22,14 @@ const SettingsForm = ({ isOpen, onClose }: SettingsFormProps) => {
     tortasSalgadasImage: 'https://i.postimg.cc/3Jq521tq/La-Casita-Cardapio-page-0005.jpg',
     panchosImage: 'https://i.postimg.cc/nL8yPzbY/La-Casita-Cardapio-page-0006.jpg',
     mediaLunasImage: 'https://i.postimg.cc/85NqT0C7/La-Casita-Cardapio-page-0007.jpg',
-    alfaJoresImage: 'https://i.postimg.cc/90fK7wZV/La-Casita-Cardapio-page-0008.jpg'
+    alfaJoresImage: 'https://i.postimg.cc/90fK7wZV/La-Casita-Cardapio-page-0008.jpg',
+    boxPresenteImage: 'https://i.postimg.cc/fb99M8PQ/Box-Presente-page-0001.jpg',
+    dulceDeLeiteImage: 'https://i.postimg.cc/rwb46BQ9/Box-Presente-page-0002.jpg',
+    ervaMatesImage: 'https://i.postimg.cc/Vk5tVfB6/Box-Presente-page-0003.jpg',
+    chaMatesImage: 'https://i.postimg.cc/05fJ5MVj/Box-Presente-page-0009.jpg',
+    porcoesImage: 'https://i.postimg.cc/C1pf5jyB/Box-Presente-page-0005.jpg',
+    cafesImage: 'https://i.postimg.cc/hvSzbctK/Box-Presente-page-0007.jpg',
+    azeitesImage: 'https://i.postimg.cc/QC0BfwF1/Box-Presente-page-0008.jpg'
   });
 
   const handleInputChange = (key: string, value: string) => {
@@ -39,6 +46,35 @@ const SettingsForm = ({ isOpen, onClose }: SettingsFormProps) => {
     onClose();
   };
 
+  const handleExport = () => {
+    const dataStr = JSON.stringify(settings, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+    
+    const exportFileDefaultName = 'la-casita-settings.json';
+    
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+  };
+
+  const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const importedSettings = JSON.parse(e.target?.result as string);
+          setSettings(importedSettings);
+          alert('Settings imported successfully!');
+        } catch (error) {
+          alert('Error importing settings. Please check the file format.');
+        }
+      };
+      reader.readAsText(file);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -52,6 +88,31 @@ const SettingsForm = ({ isOpen, onClose }: SettingsFormProps) => {
         </div>
         
         <div className="p-6 space-y-6">
+          {/* Import/Export Section */}
+          <div className="flex gap-4 p-4 bg-gray-50 rounded-lg">
+            <Button onClick={handleExport} className="flex items-center gap-2">
+              <Download className="h-4 w-4" />
+              Export Settings
+            </Button>
+            <div>
+              <input
+                type="file"
+                accept=".json"
+                onChange={handleImport}
+                className="hidden"
+                id="import-file"
+              />
+              <label htmlFor="import-file">
+                <Button asChild className="flex items-center gap-2">
+                  <span>
+                    <Upload className="h-4 w-4" />
+                    Import Settings
+                  </span>
+                </Button>
+              </label>
+            </div>
+          </div>
+
           {/* Basic Site Information */}
           <div className="grid md:grid-cols-2 gap-6">
             <div>
@@ -217,6 +278,96 @@ const SettingsForm = ({ isOpen, onClose }: SettingsFormProps) => {
                   type="url"
                   value={settings.alfaJoresImage}
                   onChange={(e) => handleInputChange('alfaJoresImage', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Product Category Images */}
+          <div className="border-t pt-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Product Category Images</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Box Presente Image URL
+                </label>
+                <input
+                  type="url"
+                  value={settings.boxPresenteImage}
+                  onChange={(e) => handleInputChange('boxPresenteImage', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Dulce de Leite Image URL
+                </label>
+                <input
+                  type="url"
+                  value={settings.dulceDeLeiteImage}
+                  onChange={(e) => handleInputChange('dulceDeLeiteImage', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Erva Mates Image URL
+                </label>
+                <input
+                  type="url"
+                  value={settings.ervaMatesImage}
+                  onChange={(e) => handleInputChange('ervaMatesImage', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Cha Mates Image URL
+                </label>
+                <input
+                  type="url"
+                  value={settings.chaMatesImage}
+                  onChange={(e) => handleInputChange('chaMatesImage', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Porcoes Image URL
+                </label>
+                <input
+                  type="url"
+                  value={settings.porcoesImage}
+                  onChange={(e) => handleInputChange('porcoesImage', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Cafe's Image URL
+                </label>
+                <input
+                  type="url"
+                  value={settings.cafesImage}
+                  onChange={(e) => handleInputChange('cafesImage', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Azeites Image URL
+                </label>
+                <input
+                  type="url"
+                  value={settings.azeitesImage}
+                  onChange={(e) => handleInputChange('azeitesImage', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
                 />
               </div>

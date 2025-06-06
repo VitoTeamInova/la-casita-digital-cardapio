@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState("Postres");
+  const [selectedProduct, setSelectedProduct] = useState("Box Presente");
 
   const menuCategories = [
     { name: "Postres", image: "https://i.postimg.cc/wx0djgLg/La-Casita-Cardapio-page-0003.jpg" },
@@ -18,9 +19,24 @@ const Index = () => {
     { name: "AlfaJores", image: "https://i.postimg.cc/90fK7wZV/La-Casita-Cardapio-page-0008.jpg" },
   ];
 
+  const productCategories = [
+    { name: "Box Presente", image: "https://i.postimg.cc/fb99M8PQ/Box-Presente-page-0001.jpg" },
+    { name: "Dulce de Leite", image: "https://i.postimg.cc/rwb46BQ9/Box-Presente-page-0002.jpg" },
+    { name: "Erva Mates", image: "https://i.postimg.cc/Vk5tVfB6/Box-Presente-page-0003.jpg" },
+    { name: "Cha Mates", image: "https://i.postimg.cc/05fJ5MVj/Box-Presente-page-0009.jpg" },
+    { name: "Porcoes", image: "https://i.postimg.cc/C1pf5jyB/Box-Presente-page-0005.jpg" },
+    { name: "Cafe's", image: "https://i.postimg.cc/hvSzbctK/Box-Presente-page-0007.jpg" },
+    { name: "Azeites", image: "https://i.postimg.cc/QC0BfwF1/Box-Presente-page-0008.jpg" },
+  ];
+
   const getCurrentImage = () => {
     const category = menuCategories.find(cat => cat.name === selectedCategory);
     return category ? category.image : menuCategories[0].image;
+  };
+
+  const getCurrentProductImage = () => {
+    const product = productCategories.find(prod => prod.name === selectedProduct);
+    return product ? product.image : productCategories[0].image;
   };
 
   const handleWhatsAppClick = () => {
@@ -107,13 +123,44 @@ const Index = () => {
         </section>
 
         {/* Produtos Section */}
-        <section id="produtos" className="relative z-10 min-h-screen flex items-center justify-center">
-          <div className="text-center bg-white/35 backdrop-blur-sm rounded-lg shadow-xl p-16 mx-4">
-            <h1 className="text-6xl font-bold text-amber-900 mb-8">Produtos</h1>
-            <div className="text-4xl font-semibold text-gray-600 transform rotate-12 bg-red-500 text-white px-8 py-4 rounded-lg shadow-lg">
-              UNDER DEVELOPMENT
+        <section id="produtos" className="relative z-10 min-h-screen py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-4 gap-8">
+              {/* Sidebar Navigation */}
+              <div className="md:col-span-1">
+                <div className="bg-white/75 backdrop-blur-sm rounded-lg shadow-lg p-6 sticky top-24">
+                  <h2 className="text-2xl font-semibold text-amber-900 mb-4">Produtos</h2>
+                  <nav className="space-y-2">
+                    {productCategories.map((product) => (
+                      <button
+                        key={product.name}
+                        onClick={() => setSelectedProduct(product.name)}
+                        className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ${
+                          selectedProduct === product.name
+                            ? "bg-amber-700 text-white shadow-md"
+                            : "text-gray-700 hover:bg-amber-100/50 hover:text-amber-700"
+                        }`}
+                      >
+                        {product.name}
+                      </button>
+                    ))}
+                  </nav>
+                </div>
+              </div>
+
+              {/* Product Content */}
+              <div className="md:col-span-3">
+                <div className="bg-white/55 backdrop-blur-sm rounded-lg shadow-lg p-4">
+                  <div className="flex justify-center">
+                    <img
+                      src={getCurrentProductImage()}
+                      alt={selectedProduct}
+                      className="max-w-full h-auto rounded-lg shadow-md transition-opacity duration-300"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-            <p className="text-lg text-gray-600 mt-8">Esta página está em desenvolvimento</p>
           </div>
         </section>
 

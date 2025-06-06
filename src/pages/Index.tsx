@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { MessageCircle } from "lucide-react";
 import Header from "../components/Header";
@@ -71,6 +70,37 @@ const Index = () => {
                   className="rounded-lg shadow-lg max-w-full h-auto"
                 />
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="relative z-10 py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Testimonials on the left */}
+              <div className="text-white space-y-8">
+                <div>
+                  <p className="text-lg leading-relaxed">
+                    "Excelente café, medialunas maravilhosas, muito autênticas, ótimo atendimento e ambiente acolhedor. Recomendado! JS"
+                  </p>
+                </div>
+                
+                <div>
+                  <p className="text-lg leading-relaxed">
+                    "Finalmente um lugar aconchegante para tomar um ótimo café e produtos artesanais do Uruguai!! Isso é especial, um verdadeiro tesouro em Santa Cruz do Sul!! FS"
+                  </p>
+                </div>
+                
+                <div>
+                  <p className="text-lg leading-relaxed">
+                    "Ótimo ambiente e atendimento! Irei regularmente! O café e os produtos deles são caseiros e de ótima qualidade."
+                  </p>
+                </div>
+              </div>
+              
+              {/* Empty space on the right for balance */}
+              <div></div>
             </div>
           </div>
         </section>

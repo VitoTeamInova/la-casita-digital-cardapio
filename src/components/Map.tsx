@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { map } from "lucide-react";
+import { MapPin } from "lucide-react";
 
 const Map = () => {
   const [mapboxToken, setMapboxToken] = useState('');
@@ -10,7 +10,7 @@ const Map = () => {
   const mapRef = useRef<any>(null);
 
   // La Casita coordinates (approximate based on the address)
-  const laCasitaCoordinates = [-52.4267, -29.7175]; // Santa Cruz do Sul coordinates
+  const laCasitaCoordinates: [number, number] = [-52.4267, -29.7175]; // Santa Cruz do Sul coordinates
 
   const initializeMap = async (token: string) => {
     if (!mapContainer.current || !token) return;
@@ -90,37 +90,49 @@ const Map = () => {
           onClick={openDirections}
           className="bg-amber-700 hover:bg-amber-800 text-white mb-4"
         >
-          <map className="mr-2 h-4 w-4" />
+          <MapPin className="mr-2 h-4 w-4" />
           Como Chegar
         </Button>
       </div>
 
       {showTokenInput ? (
         <div className="text-center">
-          <p className="text-amber-800 mb-4">Para visualizar o mapa, insira seu token do Mapbox:</p>
-          <form onSubmit={handleTokenSubmit} className="space-y-4">
-            <input
-              type="text"
-              value={mapboxToken}
-              onChange={(e) => setMapboxToken(e.target.value)}
-              placeholder="Cole seu token do Mapbox aqui"
-              className="w-full px-4 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
-            />
-            <Button type="submit" className="bg-amber-700 hover:bg-amber-800 text-white">
-              Carregar Mapa
-            </Button>
-          </form>
-          <p className="text-xs text-amber-700 mt-2">
-            Obtenha seu token gratuito em{" "}
-            <a 
-              href="https://mapbox.com/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="underline hover:text-amber-900"
-            >
-              mapbox.com
-            </a>
-          </p>
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-6">
+            <h3 className="text-lg font-semibold text-amber-900 mb-4">Localização</h3>
+            <div className="space-y-2 text-amber-800">
+              <p><strong>Endereço:</strong> R Gonçalves Ledo, 93 - Higienópolis</p>
+              <p><strong>Cidade:</strong> Santa Cruz do Sul - RS</p>
+              <p><strong>CEP:</strong> 96820-746</p>
+              <p><strong>Telefone:</strong> (51) 3717-xxxx</p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <p className="text-blue-800 mb-4">Para visualizar o mapa interativo, insira seu token do Mapbox:</p>
+            <form onSubmit={handleTokenSubmit} className="space-y-4">
+              <input
+                type="text"
+                value={mapboxToken}
+                onChange={(e) => setMapboxToken(e.target.value)}
+                placeholder="Cole seu token do Mapbox aqui"
+                className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white">
+                Carregar Mapa
+              </Button>
+            </form>
+            <p className="text-xs text-blue-700 mt-2">
+              Obtenha seu token gratuito em{" "}
+              <a 
+                href="https://mapbox.com/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="underline hover:text-blue-900"
+              >
+                mapbox.com
+              </a>
+            </p>
+          </div>
         </div>
       ) : (
         <div 

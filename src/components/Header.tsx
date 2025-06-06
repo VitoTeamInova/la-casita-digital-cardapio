@@ -36,9 +36,9 @@ const Header = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      // Special handling for cardapio section to scroll to the top of the image container
       if (sectionId === 'cardapio') {
-        const headerHeight = 160; // Height of the header
+        // Scroll to show the sidebar menu at the top
+        const headerHeight = 120;
         const targetPosition = element.offsetTop - headerHeight;
         window.scrollTo({ 
           top: targetPosition, 
@@ -54,23 +54,23 @@ const Header = () => {
   return (
     <header className="bg-amber-800/95 backdrop-blur-sm shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-32">
+        <div className="flex items-center justify-between h-28">
           {/* Logo and Title Section */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-2">
             <div className="flex-shrink-0">
               <button onClick={() => scrollToSection('quem-somos')}>
                 <img
                   src="https://i.postimg.cc/zBkYW1Qw/La-Casita-Cardapio-page-0001.jpg"
                   alt="La Casita Logo"
-                  className="h-20 w-auto object-contain transition-transform duration-300 hover:scale-105"
+                  className="h-12 w-auto object-contain transition-transform duration-300 hover:scale-105"
                 />
               </button>
             </div>
             
             {/* Cafe Name and Title */}
             <div className="text-left">
-              <h1 className="text-2xl font-bold text-amber-100 mb-1">La Casita</h1>
-              <h2 className="text-lg font-semibold text-amber-200 mb-2">Confeitaria Uruguaiana</h2>
+              <h1 className="text-xl font-bold text-amber-100 mb-1">La Casita</h1>
+              <h2 className="text-base font-semibold text-amber-200 mb-1">Confeitaria Uruguaiana</h2>
               
               <div className="text-amber-300 space-y-1">
                 <p className="text-xs italic">R Gonçalves Ledo, 93 - Higienópolis, Santa Cruz do Sul - RS, 96820-746</p>
@@ -83,15 +83,15 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation Menu */}
-          <nav className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-6">
+          <nav className="hidden md:block flex-1 mx-8">
+            <div className="flex items-baseline justify-center space-x-6">
               {menuItems.map((item) => (
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.sectionId)}
                   className={`px-3 py-2 text-base font-medium transition-all duration-300 relative group ${
                     activeSection === item.sectionId
-                      ? "text-amber-200"
+                      ? "text-amber-200 bg-amber-700/50 rounded"
                       : "text-amber-100 hover:text-amber-200"
                   }`}
                 >
@@ -103,6 +103,15 @@ const Header = () => {
               ))}
             </div>
           </nav>
+
+          {/* Coffee Logo on the right */}
+          <div className="hidden md:block flex-shrink-0">
+            <img
+              src="https://img.freepik.com/vetores-premium/uruguai-icona-de-xicara-de-cafe-design-de-ilustracao-do-logotipo-da-cafeteria_1055966-99.jpg?w=2000"
+              alt="Coffee Logo"
+              className="h-16 w-auto object-contain"
+            />
+          </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">

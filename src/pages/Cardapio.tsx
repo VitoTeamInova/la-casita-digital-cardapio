@@ -24,14 +24,22 @@ const Cardapio = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       
-      <main className="flex-1 bg-amber-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-4xl font-bold text-amber-900 text-center mb-8">Cardápio</h1>
+      <main 
+        className="flex-1 relative bg-cover bg-center bg-fixed"
+        style={{
+          backgroundImage: "url('https://i.postimg.cc/8zv3MSJF/La-Casita-Cardapio-page-0014.jpg')"
+        }}
+      >
+        {/* Overlay for better readability */}
+        <div className="absolute inset-0 bg-black/30"></div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <h1 className="text-4xl font-bold text-white text-center mb-8 drop-shadow-lg">Cardápio</h1>
           
           <div className="grid md:grid-cols-4 gap-8">
             {/* Sidebar Navigation */}
             <div className="md:col-span-1">
-              <div className="bg-white rounded-lg shadow-lg p-6 sticky top-24">
+              <div className="bg-white/35 backdrop-blur-sm rounded-lg shadow-lg p-6 sticky top-24">
                 <h2 className="text-2xl font-semibold text-amber-900 mb-4">Categorias</h2>
                 <nav className="space-y-2">
                   {menuCategories.map((category) => (
@@ -41,7 +49,7 @@ const Cardapio = () => {
                       className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ${
                         selectedCategory === category.name
                           ? "bg-amber-700 text-white shadow-md"
-                          : "text-gray-700 hover:bg-amber-100 hover:text-amber-700"
+                          : "text-gray-700 hover:bg-amber-100/50 hover:text-amber-700"
                       }`}
                     >
                       {category.name}
@@ -53,7 +61,7 @@ const Cardapio = () => {
 
             {/* Menu Content */}
             <div className="md:col-span-3">
-              <div className="bg-white rounded-lg shadow-lg p-6">
+              <div className="bg-white/35 backdrop-blur-sm rounded-lg shadow-lg p-6">
                 <h3 className="text-2xl font-semibold text-amber-900 mb-6">{selectedCategory}</h3>
                 <div className="flex justify-center">
                   <img

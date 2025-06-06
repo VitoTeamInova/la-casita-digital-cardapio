@@ -12,18 +12,34 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-white/95 backdrop-blur-sm shadow-lg sticky top-0 z-50">
+    <header className="bg-amber-100/95 backdrop-blur-sm shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-64">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link to="/">
-              <img
-                src="https://i.postimg.cc/zBkYW1Qw/La-Casita-Cardapio-page-0001.jpg"
-                alt="La Casita Logo"
-                className="h-56 w-auto object-contain transition-transform duration-300 hover:scale-105"
-              />
-            </Link>
+          {/* Logo and Title Section */}
+          <div className="flex items-center space-x-6">
+            <div className="flex-shrink-0">
+              <Link to="/">
+                <img
+                  src="https://i.postimg.cc/zBkYW1Qw/La-Casita-Cardapio-page-0001.jpg"
+                  alt="La Casita Logo"
+                  className="h-56 w-auto object-contain transition-transform duration-300 hover:scale-105"
+                />
+              </Link>
+            </div>
+            
+            {/* Cafe Name and Title */}
+            <div className="text-left">
+              <h1 className="text-4xl font-bold text-amber-900 mb-2">La Casita</h1>
+              <h2 className="text-2xl font-semibold text-amber-700 mb-3">Confeitaria Uruguaiana</h2>
+              
+              <div className="text-gray-700 space-y-1">
+                <p className="text-xs italic">R Gonçalves Ledo, 93 - Higienópolis, Santa Cruz do Sul - RS, 96820-746</p>
+                <div className="text-xs font-medium">
+                  <p>Seg a Sab - 7h30 às 23h</p>
+                  <p>Dom - 11h às 22h</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Navigation Menu */}

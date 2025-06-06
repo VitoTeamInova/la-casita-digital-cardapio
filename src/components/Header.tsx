@@ -14,14 +14,14 @@ const Header = () => {
   return (
     <header className="bg-white/95 backdrop-blur-sm shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-64">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link to="/">
               <img
-                src="https://i.postimg.cc/PrYkHYXv/La-Casita-Cardapio-page-0001.jpg"
+                src="https://i.postimg.cc/zBkYW1Qw/La-Casita-Cardapio-page-0001.jpg"
                 alt="La Casita Logo"
-                className="h-16 w-auto object-contain transition-transform duration-300 hover:scale-105"
+                className="h-56 w-auto object-contain transition-transform duration-300 hover:scale-105"
               />
             </Link>
           </div>

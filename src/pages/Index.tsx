@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { MessageCircle } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Map from "../components/Map";
@@ -20,6 +21,13 @@ const Index = () => {
   const getCurrentImage = () => {
     const category = menuCategories.find(cat => cat.name === selectedCategory);
     return category ? category.image : menuCategories[0].image;
+  };
+
+  const handleWhatsAppClick = () => {
+    const phoneNumber = "5551999994477"; // +55 (51) 9 9999 4477 formatted for WhatsApp
+    const message = "Olá! Gostaria de saber mais sobre La Casita Confeitaria.";
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappURL, '_blank');
   };
 
   return (
@@ -118,12 +126,26 @@ const Index = () => {
 
         {/* Contato Section */}
         <section id="contato" className="relative z-10 min-h-screen flex items-center justify-center">
-          <div className="text-center bg-white/35 backdrop-blur-sm rounded-lg shadow-xl p-16 mx-4">
-            <h1 className="text-6xl font-bold text-amber-900 mb-8">Contato</h1>
-            <div className="text-4xl font-semibold text-gray-600 transform rotate-12 bg-red-500 text-white px-8 py-4 rounded-lg shadow-lg">
-              UNDER DEVELOPMENT
+          <div className="relative w-full max-w-4xl mx-4">
+            <div className="text-center bg-white/35 backdrop-blur-sm rounded-lg shadow-xl p-16">
+              <h1 className="text-6xl font-bold text-amber-900 mb-8">Contato</h1>
+              <div className="text-4xl font-semibold text-gray-600 transform rotate-12 bg-red-500 text-white px-8 py-4 rounded-lg shadow-lg">
+                UNDER DEVELOPMENT
+              </div>
+              <p className="text-lg text-gray-600 mt-8">Esta página está em desenvolvimento</p>
             </div>
-            <p className="text-lg text-gray-600 mt-8">Esta página está em desenvolvimento</p>
+            
+            {/* WhatsApp Button */}
+            <div className="absolute bottom-4 left-4">
+              <button
+                onClick={handleWhatsAppClick}
+                className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 flex items-center gap-2"
+                title="Fale conosco no WhatsApp"
+              >
+                <MessageCircle size={24} />
+                <span className="hidden sm:inline text-sm font-medium">WhatsApp</span>
+              </button>
+            </div>
           </div>
         </section>
       </main>

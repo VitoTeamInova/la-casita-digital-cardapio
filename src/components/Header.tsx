@@ -34,22 +34,9 @@ const Header = () => {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
-    if (sectionId === 'cardapio') {
-      // Scroll to the separator line above the Cardapio section
-      const separatorElement = document.getElementById('cardapio-separator');
-      if (separatorElement) {
-        const headerHeight = 140;
-        const targetPosition = separatorElement.offsetTop - headerHeight;
-        window.scrollTo({ 
-          top: targetPosition, 
-          behavior: 'smooth' 
-        });
-      }
-    } else {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
     setIsMobileMenuOpen(false);
   };

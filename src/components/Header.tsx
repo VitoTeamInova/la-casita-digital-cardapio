@@ -11,6 +11,7 @@ const Header = () => {
     { name: "Quem Somos", path: "#quem-somos", sectionId: "quem-somos" },
     { name: "Cardapio", path: "#cardapio", sectionId: "cardapio" },
     { name: "Produtos", path: "#produtos", sectionId: "produtos" },
+    { name: "Como Chegar", path: "#como-chegar", sectionId: "como-chegar" },
     { name: "Contato", path: "#contato", sectionId: "contato" },
   ];
 
@@ -35,7 +36,17 @@ const Header = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // Special handling for cardapio section to scroll to the top of the image container
+      if (sectionId === 'cardapio') {
+        const headerHeight = 160; // Height of the header
+        const targetPosition = element.offsetTop - headerHeight;
+        window.scrollTo({ 
+          top: targetPosition, 
+          behavior: 'smooth' 
+        });
+      } else {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
     setIsMobileMenuOpen(false);
   };
@@ -43,7 +54,7 @@ const Header = () => {
   return (
     <header className="bg-amber-800/95 backdrop-blur-sm shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-40">
+        <div className="flex items-center justify-between h-32">
           {/* Logo and Title Section */}
           <div className="flex items-center space-x-6">
             <div className="flex-shrink-0">
@@ -51,15 +62,15 @@ const Header = () => {
                 <img
                   src="https://i.postimg.cc/zBkYW1Qw/La-Casita-Cardapio-page-0001.jpg"
                   alt="La Casita Logo"
-                  className="h-32 w-auto object-contain transition-transform duration-300 hover:scale-105"
+                  className="h-20 w-auto object-contain transition-transform duration-300 hover:scale-105"
                 />
               </button>
             </div>
             
             {/* Cafe Name and Title */}
             <div className="text-left">
-              <h1 className="text-3xl font-bold text-amber-100 mb-1">La Casita</h1>
-              <h2 className="text-xl font-semibold text-amber-200 mb-2">Confeitaria Uruguaiana</h2>
+              <h1 className="text-2xl font-bold text-amber-100 mb-1">La Casita</h1>
+              <h2 className="text-lg font-semibold text-amber-200 mb-2">Confeitaria Uruguaiana</h2>
               
               <div className="text-amber-300 space-y-1">
                 <p className="text-xs italic">R Gonçalves Ledo, 93 - Higienópolis, Santa Cruz do Sul - RS, 96820-746</p>
@@ -73,12 +84,12 @@ const Header = () => {
 
           {/* Desktop Navigation Menu */}
           <nav className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+            <div className="ml-10 flex items-baseline space-x-6">
               {menuItems.map((item) => (
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.sectionId)}
-                  className={`px-3 py-2 text-lg font-medium transition-all duration-300 relative group ${
+                  className={`px-3 py-2 text-base font-medium transition-all duration-300 relative group ${
                     activeSection === item.sectionId
                       ? "text-amber-200"
                       : "text-amber-100 hover:text-amber-200"

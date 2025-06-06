@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Map from "../components/Map";
 
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState("Postres");
@@ -55,7 +56,7 @@ const Index = () => {
             <div className="grid md:grid-cols-4 gap-8">
               {/* Sidebar Navigation */}
               <div className="md:col-span-1">
-                <div className="bg-white/55 backdrop-blur-sm rounded-lg shadow-lg p-6 sticky top-24">
+                <div className="bg-white/75 backdrop-blur-sm rounded-lg shadow-lg p-6 sticky top-24">
                   <h2 className="text-2xl font-semibold text-amber-900 mb-4">Cardapio</h2>
                   <nav className="space-y-2">
                     {menuCategories.map((category) => (
@@ -77,7 +78,7 @@ const Index = () => {
 
               {/* Menu Content */}
               <div className="md:col-span-3">
-                <div className="bg-white/25 backdrop-blur-sm rounded-lg shadow-lg p-4">
+                <div className="bg-white/55 backdrop-blur-sm rounded-lg shadow-lg p-4">
                   <div className="flex justify-center">
                     <img
                       src={getCurrentImage()}
@@ -99,6 +100,13 @@ const Index = () => {
               UNDER DEVELOPMENT
             </div>
             <p className="text-lg text-gray-600 mt-8">Esta página está em desenvolvimento</p>
+          </div>
+        </section>
+
+        {/* Como Chegar Section */}
+        <section id="como-chegar" className="relative z-10 min-h-screen flex items-center justify-center py-16">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Map />
           </div>
         </section>
 
